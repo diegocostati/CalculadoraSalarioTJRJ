@@ -91,3 +91,237 @@ body {
 .card {
   background-color: var(--card-bg);
   border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #cbd5e1;                /* Rótulos mais claros para leitura no fundo escuro */
+  font-weight: 600;
+  gap: 8px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: #0f172a;     /* Fundo interno dos inputs combinando com a página */
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  appearance: none;
+}
+
+/* Seta customizada em tom claro para o modo escuro */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 14px;
+  padding-right: 40px;
+}
+
+input:focus, select:focus {
+  border-color: var(--border-focus);
+  background-color: #1e293b;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+}
+
+input:disabled, select:disabled {
+  background-color: #1e293b;
+  color: #64748b;
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-style: dashed;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 24px 0;
+}
+
+/* Botão com gradiente vibrante e moderno no escuro */
+button {
+  width: 100%;
+  background-color: #0284c7;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 12px;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+}
+
+button:hover {
+  background-color: #0ea5e9;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   4. BLOCO DINÂMICO RJPREV
+   ========================================================================== */
+#blocoPrevComp {
+  margin-top: 8px;
+  transition: opacity 0.3s ease;
+}
+
+#blocoPrevComp .grid {
+  grid-template-columns: 1fr;
+}
+
+/* ==========================================================================
+   5. CARD DE RESULTADOS (DEMONSTRATIVO DARK PREMIUM)
+   ========================================================================== */
+.result-card {
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-color);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.result-card h3 {
+  font-size: 1.4rem;
+  color: var(--text-main);
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.result-card strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.result-card br {
+  content: "";
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Customizações utilitárias injetadas pelo Javascript */
+.text-bruto {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.text-desconto {
+  color: var(--desconto);
+  font-weight: 600;
+  background-color: var(--desconto-bg);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  display: inline-block;
+}
+
+.text-liquido {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--liquido);
+  background-color: var(--liquido-bg);
+  padding: 16px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid var(--liquido-border);
+  margin-top: 16px;
+  letter-spacing: -0.5px;
+  box-shadow: 0 4px 20px rgba(52, 211, 153, 0.15);
+}
+
+/* ==========================================================================
+   6. ANIMAÇÕES
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   7. RESPONSIVIDADE MÁXIMA (MOBILE & TABLET)
+   ========================================================================== */
+@media (max-width: 768px) {
+  body {
+    padding: 24px 16px;
+  }
+
+  .hero {
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: 1.85rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .card, .result-card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .text-liquido {
+    font-size: 1.5rem;
+    padding: 14px;
+  }
+  
+  /* Ajusta a barra interna azul injetada por linha pelo JS */
+  div[style*="background-color: #1e3a8a"] {
+    background-color: var(--azul-bloco) !important; /* Força o azul adequado do tema dark */
+    font-size: 0.9rem;
+    padding: 12px !important;
+  }
+}
