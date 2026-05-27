@@ -153,7 +153,7 @@ function calcular() {
     Adicional de Qualificação (AQ): ${formatarMoeda(adicionalQualificacao)}<br>
     <span class="text-bruto">Salário Bruto Remuneratório: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia)}</span><br><br>
 
-    <strong>Descontos e Retenções:</strong><br>
+    <strong>Previdência e Outros Descontos:</strong><br>
     Previdência Obrigatória (RIOPREV 14%): <span class="text-desconto">-${formatarMoeda(rjprevObrigatoria)}</span><br>
     ${regime === "pos2013" && rjprevComplementar > 0 ? `Previdência Complementar (RJPREV): <span class="text-desconto">-${formatarMoeda(rjprevComplementar)}</span><br>` : ""}
     Pensão Alimentícia: <span class="text-desconto">-${formatarMoeda(pensao)}</span><br>
@@ -162,7 +162,7 @@ function calcular() {
     <strong>Imposto de Renda (IRPF 2026):</strong><br>
     Deduções de Dependentes informadas: +${formatarMoeda(deducaoDep)}<br>
     Base de Cálculo do IR: <strong>${formatarMoeda(baseIR)}</strong><br>
-    Imposto de Renda Retido (IRPF): <span class="text-desconto">-${formatarMoeda(ir)}</span><br><br>
+    Desc. IR na Fonte (IRPF): <span class="text-desconto">-${formatarMoeda(ir)}</span><br><br>
 
     <strong>Benefícios e Auxílios Ganhos (Isentos):</strong><br>
     Auxílio Alimentação: ${formatarMoeda(AUX_ALIMENTACAO)}<br>
