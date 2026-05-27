@@ -126,7 +126,7 @@ function calcular() {
   const rjprevComplementar = regime === "pos2013" ? basePrevComp * (prevCompPercentual / 100) : 0;
 
   // Pensão Alimentícia e Dependentes
-  const pensao = (rendimentoBrutoSujeitoPrevidencia - rjprevObrigatoria) * pensaoPerc;
+  const pensao = (rendimentoBrutoSujeitoPrevidencia) * pensaoPerc;
   const deducaoDep = dependentes * DEDUCAO_DEP_IR;
 
   // 4. Base e Cálculo de Imposto de Renda (IRPF)
