@@ -1,90 +1,122 @@
 /* ==========================================================================
-   1. CONFIGURAÇÕES GERAIS E RESET
+   1. CONFIGURAÇÕES GERAIS, VARIÁVEIS E RESET
    ========================================================================== */
+:root {
+  /* Paleta de Cores Moderna (Tons Judiciais & Tecnológicos) */
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-light: rgba(2, 132, 199, 0.1);
+  --bg-main: #f8fafc;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --border-focus: #38bdf8;
+  
+  /* Cores de Feedback */
+  --desconto: #e11d48;
+  --desconto-bg: #fff1f2;
+  --liquido: #10b981;
+  --liquido-bg: #f0fdf4;
+  --liquido-border: #a7f3d0;
+  --azul-bloco: #1e3a8a;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-  background-color: #f1f5f9;
-  color: #1e293b;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   padding: 40px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px; /* Um pouco mais compacto melhora o visual em telas grandes */
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
-   2. HERO SECTIONS (CABEÇALHO)
+   2. HERO SECTION (CABEÇALHO)
    ========================================================================== */
 .hero {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 .hero .tag {
   display: inline-block;
-  background-color: #0284c7;
+  background-color: var(--primary);
   color: #ffffff;
-  font-size: 0.95rem;        /* Aumentado de 0.75rem para 0.95rem */
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 6px 18px;         /* Aumentado o espaçamento interno (gordinho nas laterais) */
-  border-radius: 100px;
-  margin-bottom: 16px;       /* Aumentado de 12px para 16px para dar mais respiro ao H1 */
-  letter-spacing: 1.5px;     /* Letras levemente mais espaçadas e elegantes */
+  padding: 6px 16px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
 .hero h1 {
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   color: #0f172a;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 .hero .subtitle {
   font-size: 1.05rem;
-  color: #64748b;
-  max-width: 600px;
+  color: var(--text-muted);
+  max-width: 620px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
    3. CARDS E FORMULÁRIOS
    ========================================================================== */
 .card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 28px;
+  background-color: var(--card-bg);
+  border-radius: 20px; /* Bordas mais suaves e modernas */
+  padding: 32px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 16px -6px rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito sutil ao passar o mouse nos cards de entrada */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.07);
 }
 
 .card h2 {
-  font-size: 1.2rem;
-  color: #1e293b;
-  margin-bottom: 20px;
+  font-size: 1.25rem;
+  color: #0f172a;
+  margin-bottom: 24px;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: -0.3px;
 }
 
-/* Grid estrutural de 3 colunas */
+/* Grid responsivo avançado com CSS Grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
 }
 
 label {
@@ -98,134 +130,199 @@ label {
 
 input, select {
   width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
+  padding: 12px 16px;
+  border-radius: 12px; /* Inputs mais arredondados */
+  border: 1px solid var(--border-color);
   background-color: #f8fafc;
   color: #0f172a;
   font-size: 0.95rem;
   font-weight: 500;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  appearance: none; /* Remove estilos padrão de setas nativas */
+}
+
+/* Reintroduz uma seta elegante customizada para os selects */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 14px;
+  padding-right: 40px;
 }
 
 input:focus, select:focus {
-  border-color: #0284c7;
+  border-color: var(--border-focus);
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+}
+
+input:disabled, select:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 hr {
   border: 0;
-  border-top: 1px solid #e2e8f0;
-  margin: 20px 0;
+  border-top: 1px solid var(--border-color);
+  margin: 24px 0;
 }
 
-/* Botão de cálculo */
+/* Botão de cálculo com estilo moderno */
 button {
   width: 100%;
-  background-color: #0284c7;
+  background-color: var(--primary);
   color: #ffffff;
   border: none;
-  padding: 14px;
-  border-radius: 8px;
+  padding: 16px;
+  border-radius: 12px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 24px;
-  transition: background-color 0.2s ease;
+  margin-top: 12px;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
 }
 
 button:hover {
-  background-color: #0369a1;
+  background-color: var(--primary-hover);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 /* ==========================================================================
-   4. NOVA ADIÇÃO: BLOCO DINÂMICO RJPREV
+   4. BLOCO DINÂMICO RJPREV E NOVO INPUT
    ========================================================================== */
 #blocoPrevComp {
-  margin-top: 10px;
+  margin-top: 8px;
   transition: opacity 0.3s ease;
 }
 
 #blocoPrevComp .grid {
   grid-template-columns: 1fr;
-  max-width: 32%; /* Mantém o input exatamente alinhado com o tamanho do grid de cima */
 }
 
 /* ==========================================================================
-   5. CARD DE RESULTADOS (DEMONSTRATIVO)
+   5. CARD DE RESULTADOS (DEMONSTRATIVO PREMIUM)
    ========================================================================== */
 .result-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  border: 2px solid #e2e8f0;
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border-color);
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.7;
+}
+
+.result-card h3 {
+  font-size: 1.4rem;
+  color: #0f172a;
+  font-weight: 800;
+  letter-spacing: -0.3px;
 }
 
 .result-card strong {
   color: #0f172a;
-  font-size: 1.1rem;
+  font-weight: 700;
 }
 
-/* Classes de destaque criadas no Javascript */
+/* Estilização para deixar os blocos organizados em listas limpas */
+.result-card br {
+  content: "";
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Classes utilitárias injetadas pelo Javascript */
 .text-bruto {
-  display: inline-block;
   font-weight: 700;
   color: #0f172a;
-  background-color: #f1f5f9;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-top: 6px;
 }
 
 .text-desconto {
-  color: #dc2626;
+  color: var(--desconto);
   font-weight: 600;
+  background-color: var(--desconto-bg);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  display: inline-block;
 }
 
 .text-liquido {
   display: block;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  color: #16a34a; /* Verde para destacar o ganho líquido líquido */
-  background-color: #f0fdf4;
-  padding: 12px;
-  border-radius: 8px;
+  color: var(--liquido);
+  background-color: var(--liquido-bg);
+  padding: 16px;
+  border-radius: 14px;
   text-align: center;
-  border: 1px solid #bbf7d0;
-  margin-top: 12px;
+  border: 1px solid var(--liquido-border);
+  margin-top: 16px;
+  letter-spacing: -0.5px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.06);
 }
 
 /* ==========================================================================
-   6. RESPONSIVIDADE (MOBILE)
+   6. ANIMAÇÕES
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   7. RESPONSIVIDADE MAXIMA (MOBILE & TABLET)
    ========================================================================== */
 @media (max-width: 768px) {
   body {
-    padding: 20px 12px;
+    padding: 24px 16px;
+  }
+
+  .hero {
+    margin-bottom: 28px;
   }
 
   .hero h1 {
-    font-size: 1.75rem;
+    font-size: 1.85rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .card, .result-card {
+    padding: 24px;
+    border-radius: 16px;
   }
 
   .grid {
-    grid-template-columns: 1fr; /* Transforma o grid em uma única coluna no telemóvel */
-    gap: 16px;
-  }
-
-  #blocoPrevComp .grid {
-    max-width: 100%; /* No ecrã pequeno o input da RJPREV expande por completo */
-  }
-
-  .card {
-    padding: 20px;
+    grid-template-columns: 1fr; /* Quebra perfeita em uma coluna no celular */
+    gap: 20px;
   }
 
   .text-liquido {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
+    padding: 14px;
+  }
+  
+  /* Ajusta os botões injetados por linha direto no JS em telas menores */
+  div[style*="background-color: #1e3a8a"] {
+    font-size: 0.9rem;
+    padding: 12px !important;
   }
 }
