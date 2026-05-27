@@ -187,23 +187,24 @@ function calcular() {
     </div>
 
     <strong>Salário Líquido Final:</strong> <span class="text-liquido" style="color: #10b981; font-weight: bold; font-size: 1.2em;">${formatarMoeda(resultadoFinalLiquidoGeral)}</span>
-  `;
+  `; // <--- A CRASE QUE ESTAVA FALTANDO FOI CORRIGIDA BEM AQUI!
 }
 
-// Gerenciamento do Pop-up de Aviso Legal
+// Gerenciamento do Pop-up de Aviso Legal (Isolado no escopo global)
 document.addEventListener("DOMContentLoaded", () => {
-  // Inicializa o estado da previdência (sua lógica existente)
+  // Inicializa o estado da previdência
   alternarRegimePrevidencia(); 
 
   const modal = document.getElementById("disclaimerModal");
   const btnAceitar = document.getElementById("btnAceitarDisclaimer");
 
   // Quando o usuário clicar no botão, remove o modal com um efeito de esmaecimento
-  btnAceitar.addEventListener("click", () => {
-    modal.style.opacity = "0";
-    setTimeout(() => {
-      modal.style.display = "none";
-    }, 300); // Tempo correspondente à transição do CSS
-  });
+  if (btnAceitar && modal) {
+    btnAceitar.addEventListener("click", () => {
+      modal.style.opacity = "0";
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300); // Tempo correspondente à transição do CSS
+    });
+  }
 });
-
