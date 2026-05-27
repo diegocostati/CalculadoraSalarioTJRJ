@@ -169,6 +169,7 @@ function calcular() {
     Auxílio Transporte: ${formatarMoeda(AUX_TRANSPORTE)}<br>
     Auxílio Creche: ${formatarMoeda(valorCrecheTotal)}<br>
     <strong>Total em Auxílios Indenizados: +${formatarMoeda(totalAuxilios)}</strong><br><br>
+    <strong>Salário Bruto + Benefícios: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia + totalAuxilios)}</strong><br><br>
 
     <hr style="border-top: 2px solid #cbd5e1;">
     <span class="text-liquido">Líquido Final na Conta: ${formatarMoeda(resultadoFinalLiquidoGeral)}</span>
