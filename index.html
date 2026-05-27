@@ -25,7 +25,7 @@
           Cargo Ocupado
           <select id="cargo" onchange="calcular()">
             <option value="tecnico" selected>Técnico Judiciário</option>
-            <option value="analista">Analista Judiciário - Tec. Inf.</option>
+            <option value="analista">Analista Judiciário</option>
           </select>
         </label>
 
@@ -52,7 +52,7 @@
         </label>
 
         <label>
-          Quantidade de Triênios (Tempo de Serviço)
+          Qtd. Triênios (Tempo de Serviço)
           <select id="trieniosQuantidade" onchange="calcular()">
             <option value="0" selected>Nenhum (0%)</option>
             <option value="1">1 Triênio (10%)</option>
@@ -110,17 +110,18 @@
             <option value="1">1 Dependente (R$ 1.765,59)</option>
             <option value="2">2 Dependentes (R$ 3.531,18)</option>
             <option value="3">3 Dependentes (R$ 5.296,77)</option>
+            <option value="4">4 Dependentes (R$ 7.062,36)</option>
           </select>
         </label>
 
         <label>
           Pensão Alimentícia (%)
-          <input type="number" id="pensao" value="0" min="0" max="100" step="0.1" oninput="calcular()">
+          <input type="number" id="pensao" value="0" min="0" max="100" step="1" oninput="calcular()">
         </label>
 
         <label>
-          Outros Descontos
-          <input type="number" id="outros" value="0" min="0" step="0.01" oninput="calcular()">
+          Outros Descontos (Valor Fixo)
+          <input type="number" id="outros" value="0" min="0" step="1" oninput="calcular()">
         </label>
       </div>
 
