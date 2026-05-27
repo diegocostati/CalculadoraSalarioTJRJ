@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora TJRJ</title>
+  <title>Calculadora TJRJ 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,25 +14,25 @@
       <p class="tag">TJRJ</p>
       <h1>Calculadora de Salário Líquido (TJRJ)</h1>
       <p class="subtitle">
-        Simule com precisão os vencimentos de Técnico e Analista Judiciário do Tribunal de Justiça do Rio de Janeiro, considerando tabelas oficiais, GAJ e Adicional de Qualificação.
+        Simulador de contracheque para os cargos de Técnico e Analista Judiciário do Tribunal de Justiça do Rio de Janeiro.
       </p>
     </section>
 
     <section class="card">
-      <h2>Dados do Cargo e Carreira</h2>
+      <h2>Dados do Cargo e Tempo de Serviço</h2>
       <div class="grid">
         <label>
           Cargo Ocupado
           <select id="cargo" onchange="calcular()">
-            <option value="tecnico" selected>Técnico Judiciário (Nível Médio)</option>
-            <option value="analista">Analista Judiciário (Nível Superior)</option>
+            <option value="tecnico" selected>Técnico Judiciário</option>
+            <option value="analista">Analista Judiciário - Tec. Inf.</option>
           </select>
         </label>
 
         <label>
           Padrão na Carreira
           <select id="padrao" onchange="calcular()">
-            <option value="1" selected>1 (Inicial - Classe A)</option>
+            <option value="1" selected>1 (Classe A - Inicial)</option>
             <option value="2">2 (Classe A)</option>
             <option value="3">3 (Classe A)</option>
             <option value="4">4 (Classe A)</option>
@@ -43,25 +43,48 @@
             <option value="9">9 (Classe C)</option>
             <option value="10">10 (Classe C)</option>
             <option value="11">11 (Classe C)</option>
-            <option value="12">12 (Final - Classe C)</option>
+            <option value="12">12 (Classe C)</option>
+            <option value="13">13 (Classe D)</option>
+            <option value="14">14 (Classe D)</option>
+            <option value="15">15 (Classe D)</option>
+            <option value="16">16 (Classe D - Final)</option>
           </select>
         </label>
 
         <label>
-          Adicional de Qualificação (AQ)
-          <select id="adicionalQualificacao" onchange="calcular()">
-            <option value="0" selected>Não possuo adicional (0%)</option>
-            <option value="4">Graduação / Especialização (+4%)</option>
-            <option value="6">Mestrado (+6%)</option>
-            <option value="8">Doutorado (+8%)</option>
+          Quantidade de Triênios (Tempo de Serviço)
+          <select id="trieniosQuantidade" onchange="calcular()">
+            <option value="0" selected>Nenhum (0%)</option>
+            <option value="1">1 Triênio (10%)</option>
+            <option value="2">2 Triênios (15%)</option>
+            <option value="3">3 Triênios (20%)</option>
+            <option value="4">4 Triênios (25%)</option>
+            <option value="5">5 Triênios (30%)</option>
+            <option value="6">6 Triênios (35%)</option>
+            <option value="7">7 Triênios (40%)</option>
+            <option value="8">8 Triênios (45%)</option>
+            <option value="9">9 Triênios (50%)</option>
+            <option value="10">10 Triênios (55%)</option>
+            <option value="11">11 Triênios (60% - Máximo)</option>
           </select>
         </label>
       </div>
     </section>
 
     <section class="card">
-      <h2>Previdência e Dependentes</h2>
+      <h2>Qualificação, Dependentes e Previdência</h2>
       <div class="grid">
+        <label>
+          Adicional de Qualificação (AQ)
+          <select id="adicionalQualificacao" onchange="calcular()">
+            <option value="0" selected>Sem Adicional (0%)</option>
+            <option value="7.5">Graduação (+7,5%)</option>
+            <option value="10">Especialização / Pós (+10%)</option>
+            <option value="12.5">Mestrado (+12,5%)</option>
+            <option value="15">Doutorado (+15%)</option>
+          </select>
+        </label>
+
         <label>
           Ingresso (Regime Previdenciário)
           <select id="regimePrevidencia" onchange="alternarRegimePrevidencia()">
@@ -74,28 +97,19 @@
           Dependentes (Dedução IR)
           <input type="number" id="dependentes" value="0" min="0" oninput="calcular()">
         </label>
-
-        <label>
-          Faixa Etária (Auxílio Saúde)
-          <select id="auxilioSaudeFaixa" onchange="calcular()">
-            <option value="450">Até 29 anos (R$ 450,00)</option>
-            <option value="650" selected>30 a 39 anos (R$ 650,00)</option>
-            <option value="850">40 a 49 anos (R$ 850,00)</option>
-            <option value="1100">50 anos ou mais (R$ 1.100,00)</option>
-          </select>
-        </label>
       </div>
     </section>
 
     <section class="card">
-      <h2>Avançado e Descontos</h2>
+      <h2>Dependentes e Descontos Extra</h2>
       <div class="grid">
         <label>
-          Filhos Menores (Auxílio Creche)
+          Filhos/Dependentes para Auxílio-Creche
           <select id="filhosCreche" onchange="calcular()">
             <option value="0" selected>Nenhum</option>
-            <option value="1">1 filho (R$ 1.141,00)</option>
-            <option value="2">2 filhos ou mais (R$ 2.282,00)</option>
+            <option value="1">1 Dependente (R$ 1.765,59)</option>
+            <option value="2">2 Dependentes (R$ 3.531,18)</option>
+            <option value="3">3 Dependentes (R$ 5.296,77)</option>
           </select>
         </label>
 
@@ -110,7 +124,7 @@
         </label>
       </div>
 
-      <div id="blocoPrevComp" style="display: block;">
+      <div id="blocoPrevComp">
         <hr>
         <div class="grid">
           <label>
@@ -124,7 +138,7 @@
     </section>
 
     <section class="result-card" id="resultado">
-      <p>Preencha ou altere os dados do formulário para processar o contracheque simulado.</p>
+      <p>Modifique as opções do formulário para ver o resultado do cálculo automaticamente.</p>
     </section>
 
   </main>
