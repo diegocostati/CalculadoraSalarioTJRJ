@@ -107,7 +107,7 @@ function calcular() {
   // 2. Adicionais de Carreira (Triênio e AQ)
   const percTrienio = obterPercentualTrienio(qtdTrienios);
   const valorTrienio = totalBaseEsmagado * percTrienio;
-  const adicionalQualificacao = vencimentoBase * percAQ; 
+  const adicionalQualificacao = totalBaseEsmagado * percAQ; 
 
   // Remuneração Bruta Sujeita a Descontos
   const rendimentoBrutoSujeitoPrevidencia = totalBaseEsmagado + valorTrienio + adicionalQualificacao;
