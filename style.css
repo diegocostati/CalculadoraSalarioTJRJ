@@ -1,221 +1,231 @@
 /* ==========================================================================
-   CONFIGURAÇÕES GERAIS E RESET
+   1. CONFIGURAÇÕES GERAIS E RESET
    ========================================================================== */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f1f5f9; /* Fundo ligeiramente mais limpo */
+  background-color: #f1f5f9;
   color: #1e293b;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 1050px;
-  margin: 0 auto;
-  padding: 20px 12px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 /* ==========================================================================
-   HERO / CABEÇALHO (Identidade TJRJ)
+   2. HERO SECTIONS (CABEÇALHO)
    ========================================================================== */
 .hero {
-  position: relative;
-  background: linear-gradient(135deg, #1e3a8a, #1e40af); /* Azul Escuro do Poder Judiciário */
-  color: #ffffff;
-  padding: 24px;
-  border-radius: 18px;
-  margin-bottom: 16px;
-  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15);
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-.tag {
+.hero .tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #0284c7;
   color: #ffffff;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-weight: bold;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0 0 10px;
-}
-
-h1 {
-  margin: 0;
-  font-size: 28px;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: -0.5px;
-}
-
-.subtitle {
-  font-size: 15px;
-  max-width: 700px;
-  opacity: 0.85;
-  margin-top: 8px;
-  line-height: 1.5;
-}
-
-/* ==========================================================================
-   CARDS DE ENTRADA DE DADOS
-   ========================================================================== */
-.card,
-.result-card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
-}
-
-h2 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 18px;
-  color: #0f172a;
-  border-bottom: 2px solid #f1f5f9;
-  padding-bottom: 8px;
-}
-
-h3 {
-  margin-top: 16px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
   margin-bottom: 12px;
-  font-size: 15px;
-  color: #334155;
+  letter-spacing: 1px;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid #e2e8f0;
-  margin: 16px 0;
+.hero h1 {
+  font-size: 2.25rem;
+  color: #0f172a;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.hero .subtitle {
+  font-size: 1.05rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* ==========================================================================
-   GRID RESPONSIVO (Estrutura de 3 Colunas)
+   3. CARDS E FORMULÁRIOS
    ========================================================================== */
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Grid estrutural de 3 colunas */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
 label {
   display: flex;
   flex-direction: column;
-  font-weight: bold;
-  font-size: 13px;
+  font-size: 0.85rem;
   color: #475569;
+  font-weight: 600;
+  gap: 8px;
 }
 
-/* ==========================================================================
-   INPUTS E SELETORES
-   ========================================================================== */
-input,
-select {
+input, select {
   width: 100%;
-  margin-top: 6px;
-  padding: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
   border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 14px;
+  background-color: #f8fafc;
   color: #0f172a;
-  background-color: #ffffff;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus,
-select:focus {
+  font-size: 0.95rem;
+  font-weight: 500;
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  transition: all 0.2s ease;
 }
 
-input:disabled,
-select:disabled {
-  background: #f8fafc;
-  color: #94a3b8;
-  cursor: not-allowed;
-  border-color: #e2e8f0;
+input:focus, select:focus {
+  border-color: #0284c7;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
 }
 
-/* ==========================================================================
-   BOTÃO DE COMANDO
-   ========================================================================== */
+hr {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 20px 0;
+}
+
+/* Botão de cálculo */
 button {
-  margin-top: 16px;
   width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 10px;
-  background: #1e40af; /* Azul de ação */
+  background-color: #0284c7;
   color: #ffffff;
-  font-weight: bold;
-  font-size: 15px;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
-  box-shadow: 0 4px 6px rgba(30, 64, 175, 0.2);
+  margin-top: 24px;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
-  background: #1e3a8a;
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: translateY(0);
+  background-color: #0369a1;
 }
 
 /* ==========================================================================
-   PAINEL DE RESULTADO (Contracheque)
+   4. NOVA ADIÇÃO: BLOCO DINÂMICO RJPREV
+   ========================================================================== */
+#blocoPrevComp {
+  margin-top: 10px;
+  transition: opacity 0.3s ease;
+}
+
+#blocoPrevComp .grid {
+  grid-template-columns: 1fr;
+  max-width: 32%; /* Mantém o input exatamente alinhado com o tamanho do grid de cima */
+}
+
+/* ==========================================================================
+   5. CARD DE RESULTADOS (DEMONSTRATIVO)
    ========================================================================== */
 .result-card {
-  border-left: 6px solid #16a34a; /* Barra lateral verde destacando saldo positivo */
-  background: #f8fafc;
-  font-size: 15px;
-  line-height: 1.7;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border: 2px solid #e2e8f0;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .result-card strong {
   color: #0f172a;
+  font-size: 1.1rem;
 }
 
-/* Utilitários de Cores para o innerHTML do JS */
+/* Classes de destaque criadas no Javascript */
 .text-bruto {
-  color: #1e40af;
-  font-weight: bold;
+  display: inline-block;
+  font-weight: 700;
+  color: #0f172a;
+  background-color: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
 }
 
 .text-desconto {
   color: #dc2626;
+  font-weight: 600;
 }
 
 .text-liquido {
-  color: #16a34a;
-  font-size: 20px;
-  font-weight: bold;
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #16a34a; /* Verde para destacar o ganho líquido líquido */
+  background-color: #f0fdf4;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #bbf7d0;
+  margin-top: 12px;
 }
 
 /* ==========================================================================
-   REGRAS DE RESPONSIVIDADE (Telas de Celular/Tablet)
+   6. RESPONSIVIDADE (MOBILE)
    ========================================================================== */
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr; /* Quebra o grid para apenas uma coluna */
-    gap: 12px;
+  body {
+    padding: 20px 12px;
   }
 
-  .hero {
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr; /* Transforma o grid em uma única coluna no telemóvel */
+    gap: 16px;
+  }
+
+  #blocoPrevComp .grid {
+    max-width: 100%; /* No ecrã pequeno o input da RJPREV expande por completo */
+  }
+
+  .card {
     padding: 20px;
   }
 
-  h1 {
-    font-size: 22px;
-  }
-  
-  .subtitle {
-    font-size: 14px;
+  .text-liquido {
+    font-size: 1.35rem;
   }
 }
