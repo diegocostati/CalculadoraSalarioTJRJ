@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora TJRJ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="container">
+
+    <section class="hero">
+      <p class="tag">TJRJ</p>
+      <h1>Calculadora de Salário Líquido (TJRJ)</h1>
+      <p class="subtitle">
+        Simule com precisão os vencimentos de Técnico e Analista Judiciário do Tribunal de Justiça do Rio de Janeiro, considerando tabelas oficiais, GAJ e Adicional de Qualificação.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Dados do Cargo e Carreira</h2>
+      <div class="grid">
+        <label>
+          Cargo Ocupado
+          <select id="cargo" onchange="calcular()">
+            <option value="tecnico" selected>Técnico Judiciário (Nível Médio)</option>
+            <option value="analista">Analista Judiciário (Nível Superior)</option>
+          </select>
+        </label>
+
+        <label>
+          Padrão na Carreira
+          <select id="padrao" onchange="calcular()">
+            <option value="1" selected>1 (Inicial - Classe A)</option>
+            <option value="2">2 (Classe A)</option>
+            <option value="3">3 (Classe A)</option>
+            <option value="4">4 (Classe A)</option>
+            <option value="5">5 (Classe B)</option>
+            <option value="6">6 (Classe B)</option>
+            <option value="7">7 (Classe B)</option>
+            <option value="8">8 (Classe B)</option>
+            <option value="9">9 (Classe C)</option>
+            <option value="10">10 (Classe C)</option>
+            <option value="11">11 (Classe C)</option>
+            <option value="12">12 (Final - Classe C)</option>
+          </select>
+        </label>
+
+        <label>
+          Adicional de Qualificação (AQ)
+          <select id="adicionalQualificacao" onchange="calcular()">
+            <option value="0" selected>Não possuo adicional (0%)</option>
+            <option value="4">Graduação / Especialização (+4%)</option>
+            <option value="6">Mestrado (+6%)</option>
+            <option value="8">Doutorado (+8%)</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Previdência e Dependentes</h2>
+      <div class="grid">
+        <label>
+          Ingresso (Regime Previdenciário)
+          <select id="regimePrevidencia" onchange="alternarRegimePrevidencia()">
+            <option value="pos2013" selected>Após 04/09/2013 (Com Teto)</option>
+            <option value="pre2013">Antes de 04/09/2013 (Sem Teto)</option>
+          </select>
+        </label>
+
+        <label>
+          Dependentes (Dedução IR)
+          <input type="number" id="dependentes" value="0" min="0" oninput="calcular()">
+        </label>
+
+        <label>
+          Faixa Etária (Auxílio Saúde)
+          <select id="auxilioSaudeFaixa" onchange="calcular()">
+            <option value="450">Até 29 anos (R$ 450,00)</option>
+            <option value="650" selected>30 a 39 anos (R$ 650,00)</option>
+            <option value="850">40 a 49 anos (R$ 850,00)</option>
+            <option value="1100">50 anos ou mais (R$ 1.100,00)</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Avançado e Descontos</h2>
+      <div class="grid">
+        <label>
+          Filhos Menores (Auxílio Creche)
+          <select id="filhosCreche" onchange="calcular()">
+            <option value="0" selected>Nenhum</option>
+            <option value="1">1 filho (R$ 1.141,00)</option>
+            <option value="2">2 filhos ou mais (R$ 2.282,00)</option>
+          </select>
+        </label>
+
+        <label>
+          Pensão Alimentícia (%)
+          <input type="number" id="pensao" value="0" min="0" max="100" step="0.1" oninput="calcular()">
+        </label>
+
+        <label>
+          Outros Descontos
+          <input type="number" id="outros" value="0" min="0" step="0.01" oninput="calcular()">
+        </label>
+      </div>
+
+      <div id="blocoPrevComp" style="display: block;">
+        <hr>
+        <div class="grid">
+          <label>
+            Previdência Comp. (RJPREV %)
+            <input type="number" id="prevComp" value="0" min="0" max="8.5" step="0.1" oninput="calcular()">
+          </label>
+        </div>
+      </div>
+
+      <button type="button" onclick="calcular()">Calcular Remuneração TJRJ</button>
+    </section>
+
+    <section class="result-card" id="resultado">
+      <p>Preencha ou altere os dados do formulário para processar o contracheque simulado.</p>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
