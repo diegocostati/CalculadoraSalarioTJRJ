@@ -1,25 +1,25 @@
 /* ==========================================================================
-   1. CONFIGURAÇÕES GERAIS, VARIÁVEIS E RESET
+   1. CONFIGURAÇÕES GERAIS, VARIÁVEIS E RESET (MODO DARK)
    ========================================================================== */
 :root {
-  /* Paleta de Cores Moderna (Tons Judiciais & Tecnológicos) */
-  --primary: #0284c7;
-  --primary-hover: #0369a1;
-  --primary-light: rgba(2, 132, 199, 0.1);
-  --bg-main: #f8fafc;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --card-bg: #ffffff;
-  --border-color: #e2e8f0;
+  /* Paleta de Cores Modo Dark Neutro/Saturado */
+  --primary: #38bdf8;            /* Azul celeste brilhante para contrastar no escuro */
+  --primary-hover: #0ea5e9;
+  --primary-light: rgba(56, 189, 248, 0.1);
+  --bg-main: #0f172a;            /* Fundo principal ultra-escuro (Slate 900) */
+  --text-main: #f8fafc;          /* Texto principal quase branco (Slate 50) */
+  --text-muted: #94a3b8;         /* Texto secundário/atenuado (Slate 400) */
+  --card-bg: #1e293b;            /* Fundo dos cards cinza-azulados (Slate 800) */
+  --border-color: #334155;       /* Bordas sutis para modo escuro (Slate 700) */
   --border-focus: #38bdf8;
   
-  /* Cores de Feedback */
-  --desconto: #e11d48;
-  --desconto-bg: #fff1f2;
-  --liquido: #10b981;
-  --liquido-bg: #f0fdf4;
-  --liquido-border: #a7f3d0;
-  --azul-bloco: #1e3a8a;
+  /* Cores de Feedback Calibradas para Telas Escuras */
+  --desconto: #f43f5e;           /* Vermelho rosa vivo para destacar no fundo escuro */
+  --desconto-bg: rgba(244, 63, 94, 0.15);
+  --liquido: #34d399;            /* Verde esmeralda brilhante */
+  --liquido-bg: rgba(52, 211, 153, 0.1);
+  --liquido-border: rgba(52, 211, 153, 0.3);
+  --azul-bloco: #1d4ed8;         /* Azul real em destaque */
 }
 
 * {
@@ -42,7 +42,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 900px; /* Um pouco mais compacto melhora o visual em telas grandes */
+  max-width: 900px;
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -56,7 +56,7 @@ body {
 
 .hero .tag {
   display: inline-block;
-  background-color: var(--primary);
+  background-color: #0284c7;   /* Mantém o azul oficial do tribunal */
   color: #ffffff;
   font-size: 0.8rem;
   font-weight: 700;
@@ -65,12 +65,12 @@ body {
   border-radius: 9999px;
   margin-bottom: 16px;
   letter-spacing: 1.5px;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
 }
 
 .hero h1 {
   font-size: 2.5rem;
-  color: #0f172a;
+  color: var(--text-main);
   font-weight: 800;
   margin-bottom: 12px;
   letter-spacing: -0.5px;
@@ -90,239 +90,4 @@ body {
    ========================================================================== */
 .card {
   background-color: var(--card-bg);
-  border-radius: 20px; /* Bordas mais suaves e modernas */
-  padding: 32px;
-  margin-bottom: 24px;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 16px -6px rgba(15, 23, 42, 0.04);
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efeito sutil ao passar o mouse nos cards de entrada */
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.07);
-}
-
-.card h2 {
-  font-size: 1.25rem;
-  color: #0f172a;
-  margin-bottom: 24px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-}
-
-/* Grid responsivo avançado com CSS Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.85rem;
-  color: #475569;
-  font-weight: 600;
-  gap: 8px;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 12px; /* Inputs mais arredondados */
-  border: 1px solid var(--border-color);
-  background-color: #f8fafc;
-  color: #0f172a;
-  font-size: 0.95rem;
-  font-weight: 500;
-  outline: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  appearance: none; /* Remove estilos padrão de setas nativas */
-}
-
-/* Reintroduz uma seta elegante customizada para os selects */
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 14px;
-  padding-right: 40px;
-}
-
-input:focus, select:focus {
-  border-color: var(--border-focus);
-  background-color: #ffffff;
-  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
-}
-
-input:disabled, select:disabled {
-  background-color: #f1f5f9;
-  color: #94a3b8;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid var(--border-color);
-  margin: 24px 0;
-}
-
-/* Botão de cálculo com estilo moderno */
-button {
-  width: 100%;
-  background-color: var(--primary);
-  color: #ffffff;
-  border: none;
-  padding: 16px;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 12px;
-  letter-spacing: 0.3px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
-}
-
-button:hover {
-  background-color: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-/* ==========================================================================
-   4. BLOCO DINÂMICO RJPREV E NOVO INPUT
-   ========================================================================== */
-#blocoPrevComp {
-  margin-top: 8px;
-  transition: opacity 0.3s ease;
-}
-
-#blocoPrevComp .grid {
-  grid-template-columns: 1fr;
-}
-
-/* ==========================================================================
-   5. CARD DE RESULTADOS (DEMONSTRATIVO PREMIUM)
-   ========================================================================== */
-.result-card {
-  background-color: var(--card-bg);
   border-radius: 20px;
-  padding: 36px;
-  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
-  border: 1px solid var(--border-color);
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-
-.result-card h3 {
-  font-size: 1.4rem;
-  color: #0f172a;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-}
-
-.result-card strong {
-  color: #0f172a;
-  font-weight: 700;
-}
-
-/* Estilização para deixar os blocos organizados em listas limpas */
-.result-card br {
-  content: "";
-  display: block;
-  margin-bottom: 6px;
-}
-
-/* Classes utilitárias injetadas pelo Javascript */
-.text-bruto {
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.text-desconto {
-  color: var(--desconto);
-  font-weight: 600;
-  background-color: var(--desconto-bg);
-  padding: 2px 6px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  display: inline-block;
-}
-
-.text-liquido {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--liquido);
-  background-color: var(--liquido-bg);
-  padding: 16px;
-  border-radius: 14px;
-  text-align: center;
-  border: 1px solid var(--liquido-border);
-  margin-top: 16px;
-  letter-spacing: -0.5px;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.06);
-}
-
-/* ==========================================================================
-   6. ANIMAÇÕES
-   ========================================================================== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ==========================================================================
-   7. RESPONSIVIDADE MAXIMA (MOBILE & TABLET)
-   ========================================================================== */
-@media (max-width: 768px) {
-  body {
-    padding: 24px 16px;
-  }
-
-  .hero {
-    margin-bottom: 28px;
-  }
-
-  .hero h1 {
-    font-size: 1.85rem;
-  }
-
-  .hero .subtitle {
-    font-size: 0.95rem;
-  }
-
-  .card, .result-card {
-    padding: 24px;
-    border-radius: 16px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr; /* Quebra perfeita em uma coluna no celular */
-    gap: 20px;
-  }
-
-  .text-liquido {
-    font-size: 1.5rem;
-    padding: 14px;
-  }
-  
-  /* Ajusta os botões injetados por linha direto no JS em telas menores */
-  div[style*="background-color: #1e3a8a"] {
-    font-size: 0.9rem;
-    padding: 12px !important;
-  }
-}
