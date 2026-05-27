@@ -142,7 +142,7 @@ function calcular() {
   const salarioLiquidoSemAuxilios = rendimentoBrutoSujeitoPrevidencia - totalDescontosObrigatorios - rjprevComplementar - pensao - outros;
   const resultadoFinalLiquidoGeral = salarioLiquidoSemAuxilios + totalAuxilios;
 
-  // Renderização do Painel de Resultados
+// Renderização do Painel de Resultados (Atualizado com Bruto e Base IR)
   document.getElementById("resultado").innerHTML = `
     <strong>Demonstrativo de Remuneração Estimada (TJRJ)</strong><br><br>
 
@@ -151,15 +151,18 @@ function calcular() {
     APJ (100%): ${formatarMoeda(apj)}<br>
     Triênio (${(percTrienio * 100).toFixed(0)}%): ${formatarMoeda(valorTrienio)}<br>
     Adicional de Qualificação (AQ): ${formatarMoeda(adicionalQualificacao)}<br>
-    <span class="text-bruto">Bruto Remuneratório Geral: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia)}</span><br><br>
+    <span class="text-bruto">Salário Bruto Remuneratório: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia)}</span><br><br>
 
     <strong>Descontos e Retenções:</strong><br>
     Previdência Obrigatória (RIOPREV 14%): <span class="text-desconto">-${formatarMoeda(rjprevObrigatoria)}</span><br>
     ${regime === "pos2013" && rjprevComplementar > 0 ? `Previdência Complementar (RJPREV): <span class="text-desconto">-${formatarMoeda(rjprevComplementar)}</span><br>` : ""}
-    Imposto de Renda Retido (IRPF): <span class="text-desconto">-${formatarMoeda(ir)}</span><br>
-    Deduções de Dependentes informadas: +${formatarMoeda(deducaoDep)}<br>
     Pensão Alimentícia: <span class="text-desconto">-${formatarMoeda(pensao)}</span><br>
     Outros Descontos: <span class="text-desconto">-${formatarMoeda(outros)}</span><br><br>
+    
+    <strong>Imposto de Renda (IRPF 2026):</strong><br>
+    Deduções de Dependentes informadas: +${formatarMoeda(deducaoDep)}<br>
+    Base de Cálculo do IR: <strong>${formatarMoeda(baseIR)}</strong><br>
+    Imposto de Renda Retido (IRPF): <span class="text-desconto">-${formatarMoeda(ir)}</span><br><br>
 
     <strong>Benefícios e Auxílios Ganhos (Isentos):</strong><br>
     Auxílio Alimentação: ${formatarMoeda(AUX_ALIMENTACAO)}<br>
