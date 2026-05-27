@@ -7,23 +7,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="disclaimerModal" class="modal-overlay">
-  <div class="modal-card">
-    <div class="modal-icon">⚠️</div>
-    <h2>Aviso Importante</h2>
-    <p>Esta ferramenta foi desenvolvida exclusivamente para gerar <strong>estimativas remuneratórias</strong> com base nas tabelas vigentes.</p>
-    
-    <div class="modal-alert-box">
-      <p>A presente calculadora <strong>não possui qualquer ligação oficial</strong> com o Tribunal de Justiça do Rio de Janeiro (TJRJ) e <strong>não possui intuito comercial</strong>.</p>
-    </div>
-    
-    <button id="btnAceitarDisclaimer" class="btn-modal">Entendi e Aceito</button>
-    
-    <div class="modal-footer">
-      Desenvolvida pelo Candidato <strong>Diego Costa</strong>, aprovado no cargo de <strong>Analista de TI - Arquiteto de Dados</strong>.
+
+  <div id="disclaimerModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h2>Aviso Importante</h2>
+      <p>Esta ferramenta foi desenvolvida exclusivamente para gerar <strong>estimativas remuneratórias</strong> com base nas tabelas vigentes.</p>
+      
+      <div class="modal-alert-box">
+        <p>A presente calculadora <strong>não possui qualquer ligação oficial</strong> com o Tribunal de Justiça do Rio de Janeiro (TJRJ) e <strong>não possui intuito comercial</strong>.</p>
+      </div>
+      
+      <button id="btnAceitarDisclaimer" class="btn-modal">Entendi e Aceito</button>
+      
+      <div class="modal-footer">
+        Desenvolvida pelo Candidato <strong>Diego Costa</strong>, aprovado no cargo de <strong>Analista de TI - Arquiteto de Dados</strong>.
+      </div>
     </div>
   </div>
-</div>
 
   <main class="container">
 
@@ -146,13 +147,13 @@
           <input type="number" id="gratificacoesExtras" value="0" min="0" step="100" oninput="calcular()">
         </label>
 
-         <label>
+        <div id="blocoPrevComp">
+          <label>
             Previdência Comp. (RJPREV %)
             <input type="number" id="prevComp" value="0" min="0" max="8.5" step="0.1" oninput="calcular()">
           </label>
-      </div>
-
-        <button type="button" onclick="calcular()">Calcular Remuneração TJRJ</button>
+        </div>
+      </div> <button type="button" onclick="calcular()">Calcular Remuneração TJRJ</button>
     </section>
 
     <section class="result-card" id="resultado">
