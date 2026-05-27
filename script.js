@@ -46,11 +46,36 @@ function alternarRegimePrevidencia() {
 }
 
 function calcularIR(base) {
-  if (base <= 2428.80) return 0;
-  if (base <= 2826.65) return base * 0.075 - 182.16;
-  if (base <= 3751.05) return base * 0.15 - 394.16;
-  if (base <= 4664.68) return base * 0.225 - 675.49;
-  return base * 0.275 - 908.73;
+  // 1. Cálculo do IR utilizando a tabela tradicional mantida em 2026
+  let irTradicional = 0;
+  
+  if (base <= 2428.80) {
+    irTradicional = 0;
+  } else if (base <= 2826.65) {
+    irTradicional = base * 0.075 - 182.16;
+  } else if (base <= 3751.05) {
+    irTradicional = base * 0.15 - 394.16;
+  } else if (base <= 4664.68) {
+    irTradicional = base * 0.225 - 675.49;
+  } else {
+    irTradicional = base * 0.275 - 908.73;
+  }
+
+  // 2. Aplicação dos novos redutores fiscais da regra de 2026
+  if (base <= 5000.00) {
+    // Isenção total: o redutor de até R$ 312,89 zera o imposto apurado
+    return 0;
+  } else if (base <= 7350.00) {
+    // Redução gradual e decrescente do imposto
+    let redutor = 978.62 - (0.133145 * base);
+    let irFinal = irTradicional - redutor;
+    
+    // Garante que o imposto não fique negativo caso o redutor supere o IR
+    return Math.max(0, irFinal);
+  }
+
+  // Para bases acima de R$ 7.350,00, segue o valor da tabela tradicional sem descontos
+  return Math.max(0, irTradicional);
 }
 
 function obterPercentualTrienio(quantidade) {
