@@ -97,6 +97,9 @@ function calcular() {
   const pensaoPerc = (parseFloat(document.getElementById("pensao").value) || 0) / 100;
   const outros = parseFloat(document.getElementById("outros").value) || 0;
   let prevCompPercentual = parseFloat(document.getElementById("prevComp").value) || 0;
+  
+  // Captura do novo campo de gratificações extras
+  const gratificacoesExtras = parseFloat(document.getElementById("gratificacoesExtras").value) || 0;
 
   // 1. Vencimentos estruturais (Vencimento + GAJ 100% + APJ 100%)
   const vencimentoBase = tabelaVencimentos2026[cargo][padrao];
@@ -109,8 +112,8 @@ function calcular() {
   const valorTrienio = totalBaseEsmagado * percTrienio;
   const adicionalQualificacao = totalBaseEsmagado * percAQ; 
 
-  // Remuneração Bruta Sujeita a Descontos
-  const rendimentoBrutoSujeitoPrevidencia = totalBaseEsmagado + valorTrienio + adicionalQualificacao;
+  // Remuneração Bruta Sujeita a Descontos (incluindo as Gratificações Extras conforme solicitado)
+  const rendimentoBrutoSujeitoPrevidencia = totalBaseEsmagado + valorTrienio + adicionalQualificacao + gratificacoesExtras;
 
   // 3. Previdência (RIOPREV - 14%)
   let rjprevObrigatoria = 0;
@@ -142,37 +145,48 @@ function calcular() {
   const salarioLiquidoSemAuxilios = rendimentoBrutoSujeitoPrevidencia - totalDescontosObrigatorios - rjprevComplementar - pensao - outros;
   const resultadoFinalLiquidoGeral = salarioLiquidoSemAuxilios + totalAuxilios;
 
-// Renderização do Painel de Resultados (Atualizado com Bruto e Base IR)
+  // Renderização do Painel de Resultados (Atualizado com Gratificações Extras e divisões de Previdência)
   document.getElementById("resultado").innerHTML = `
-    <strong>Demonstrativo de Remuneração Estimada (TJRJ)</strong><br><br>
-
+    <h3>Demonstrativo de Remuneração Estimada (TJRJ)</h3>
+    <hr>
+    
+    <strong>Vantagens e Adicionais:</strong><br>
     Vencimento-Base: ${formatarMoeda(vencimentoBase)}<br>
     GAJ (100%): ${formatarMoeda(gaj)}<br>
     APJ (100%): ${formatarMoeda(apj)}<br>
     Triênio (${(percTrienio * 100).toFixed(0)}%): ${formatarMoeda(valorTrienio)}<br>
     Adicional de Qualificação (AQ): ${formatarMoeda(adicionalQualificacao)}<br>
-    <span class="text-bruto">Salário Bruto Remuneratório: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia)}</span><br><br>
+    ${gratificacoesExtras > 0 ? `Gratificações Extras: ${formatarMoeda(gratificacoesExtras)}<br>` : ""}
+    <strong>Salário Bruto Remuneratório:</strong> ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia)}<br><br>
 
-    <strong>Previdência e Outros Descontos:</strong><br>
-    Previdência Obrigatória (RIOPREV 14%): <span class="text-desconto">-${formatarMoeda(rjprevObrigatoria)}</span><br>
-    ${regime === "pos2013" && rjprevComplementar > 0 ? `Previdência Complementar (RJPREV): <span class="text-desconto">-${formatarMoeda(rjprevComplementar)}</span><br>` : ""}
-    Pensão Alimentícia: <span class="text-desconto">-${formatarMoeda(pensao)}</span><br>
-    Outros Descontos: <span class="text-desconto">-${formatarMoeda(outros)}</span><br><br>
-    
+    <strong>Previdência Social (Obrigatória):</strong><br>
+    Previdência Obrigatória (RIOPREV 14%): <span class="text-desconto">-${formatarMoeda(rjprevObrigatoria)}</span><br><br>
+
+    ${regime === "pos2013" && rjprevComplementar > 0 ? `
+    <strong>Previdência Complementar (Opcional):</strong><br>
+    Previdência Complementar (RJPREV): <span class="text-desconto">-${formatarMoeda(rjprevComplementar)}</span><br><br>
+    ` : ""}
+
     <strong>Imposto de Renda (IRPF 2026):</strong><br>
     Deduções de Dependentes informadas: +${formatarMoeda(deducaoDep)}<br>
-    Base de Cálculo do IR: <strong>${formatarMoeda(baseIR)}</strong><br>
+    Base de Cálculo do IR: ${formatarMoeda(baseIR)}<br>
     Desc. IR na Fonte (IRPF): <span class="text-desconto">-${formatarMoeda(ir)}</span><br><br>
+
+    <strong>Outros Descontos e Retenções:</strong><br>
+    Pensão Alimentícia: <span class="text-desconto">-${formatarMoeda(pensao)}</span><br>
+    Outros Descontos: <span class="text-desconto">-${formatarMoeda(outros)}</span><br><br>
 
     <strong>Benefícios e Auxílios Ganhos (Isentos):</strong><br>
     Auxílio Alimentação: ${formatarMoeda(AUX_ALIMENTACAO)}<br>
     Auxílio Transporte: ${formatarMoeda(AUX_TRANSPORTE)}<br>
     Auxílio Creche: ${formatarMoeda(valorCrecheTotal)}<br>
-    <strong>Total em Auxílios Indenizados: +${formatarMoeda(totalAuxilios)}</strong><br><br>
-    <strong>Salário Bruto + Benefícios: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia + totalAuxilios)}</strong><br><br>
+    Total em Auxílios Indenizados: +${formatarMoeda(totalAuxilios)}<br><br>
 
-    <hr style="border-top: 2px solid #cbd5e1;">
-    <span class="text-liquido">Líquido Final na Conta: ${formatarMoeda(resultadoFinalLiquidoGeral)}</span>
+    <div style="background-color: #1e3a8a; color: white; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-weight: bold;">
+      Salário Bruto + Benefícios: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia + totalAuxilios)}
+    </div>
+
+    <strong>Salário Líquido Final:</strong> <span class="text-liquido" style="color: #10b981; font-weight: bold; font-size: 1.2em;">${formatarMoeda(resultadoFinalLiquidoGeral)}</span>
   `;
 }
 
