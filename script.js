@@ -190,6 +190,20 @@ function calcular() {
   `;
 }
 
+// Gerenciamento do Pop-up de Aviso Legal
 document.addEventListener("DOMContentLoaded", () => {
-  alternarRegimePrevidencia();
+  // Inicializa o estado da previdência (sua lógica existente)
+  alternarRegimePrevidencia(); 
+
+  const modal = document.getElementById("disclaimerModal");
+  const btnAceitar = document.getElementById("btnAceitarDisclaimer");
+
+  // Quando o usuário clicar no botão, remove o modal com um efeito de esmaecimento
+  btnAceitar.addEventListener("click", () => {
+    modal.style.opacity = "0";
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 300); // Tempo correspondente à transição do CSS
+  });
 });
+
