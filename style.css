@@ -35,13 +35,13 @@ body {
   display: inline-block;
   background-color: #0284c7;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: 0.95rem;        /* Aumentado de 0.75rem para 0.95rem */
   font-weight: 700;
   text-transform: uppercase;
-  padding: 4px 12px;
+  padding: 6px 18px;         /* Aumentado o espaçamento interno (gordinho nas laterais) */
   border-radius: 100px;
-  margin-bottom: 12px;
-  letter-spacing: 1px;
+  margin-bottom: 16px;       /* Aumentado de 12px para 16px para dar mais respiro ao H1 */
+  letter-spacing: 1.5px;     /* Letras levemente mais espaçadas e elegantes */
 }
 
 .hero h1 {
