@@ -11,6 +11,12 @@ const tabelaVencimentos2026 = {
     5: 3651.47, 6: 3797.51, 7: 3949.43, 8: 4107.41,
     9: 4271.71, 10: 4442.57, 11: 4620.26, 12: 4805.09,
     13: 5189.49, 14: 5604.65, 15: 6053.02, 16: 6537.27
+  },
+  analista_oja: { // Novo cargo adicionado mapeando a tabela de nível superior
+    1: 3121.28, 2: 3246.14, 3: 3375.98, 4: 3511.03,  
+    5: 3651.47, 6: 3797.51, 7: 3949.43, 8: 4107.41,  
+    9: 4271.71, 10: 4442.57, 11: 4620.26, 12: 4805.09,  
+    13: 5189.49, 14: 5604.65, 15: 6053.02, 16: 6537.27   
   }
 };
 
@@ -21,6 +27,7 @@ const TETO_AUX_CRECHE_INDIVIDUAL = 1765.59;
 const DEDUCAO_DEP_IR = 189.59;
 const TETO_INSS = 8475.55;
 const ALIQUOTA_RIOPREV = 0.14;
+const GRATIFICACAO_LOCALIZACAO_OJA = 3000.00; // Atualizado para os R$ 3.000,00 solicitados
 
 function formatarMoeda(valor) {
   return valor.toLocaleString("pt-BR", {
@@ -138,7 +145,10 @@ function calcular() {
 
   // Consolidação de Benefícios e Auxílios Indenizatórios (Isentos)
   const valorCrecheTotal = qtdFilhosCreche * TETO_AUX_CRECHE_INDIVIDUAL;
-  const totalAuxilios = AUX_ALIMENTACAO + AUX_TRANSPORTE + valorCrecheTotal;
+  
+  // Verifica se o cargo é OJA para adicionar os R$ 3.000,00 isolados nos benefícios
+  const valorOjaIndenizatorio = cargo === "analista_oja" ? GRATIFICACAO_LOCALIZACAO_OJA : 0;
+  const totalAuxilios = AUX_ALIMENTACAO + AUX_TRANSPORTE + valorCrecheTotal + valorOjaIndenizatorio;
 
   // Encerramento do Cálculo Líquido
   const totalDescontosObrigatorios = rjprevObrigatoria + ir;
@@ -180,6 +190,7 @@ function calcular() {
     Auxílio Alimentação: ${formatarMoeda(AUX_ALIMENTACAO)}<br>
     Auxílio Transporte: ${formatarMoeda(AUX_TRANSPORTE)}<br>
     Auxílio Creche: ${formatarMoeda(valorCrecheTotal)}<br>
+    ${cargo === "analista_oja" ? `Gratificação de Localização (OJA): ${formatarMoeda(GRATIFICACAO_LOCALIZACAO_OJA)}<br>` : ""}
     Total em Auxílios Indenizados: +${formatarMoeda(totalAuxilios)}<br><br>
 
     <div style="background-color: #1e3a8a; color: white; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-weight: bold;">
@@ -187,7 +198,7 @@ function calcular() {
     </div>
 
     <strong>Salário Líquido Final:</strong> <span class="text-liquido" style="color: #10b981; font-weight: bold; font-size: 1.2em;">${formatarMoeda(resultadoFinalLiquidoGeral)}</span>
-  `; // <--- A CRASE QUE ESTAVA FALTANDO FOI CORRIGIDA BEM AQUI!
+  `;
 }
 
 // Gerenciamento do Pop-up de Aviso Legal (Isolado no escopo global)
