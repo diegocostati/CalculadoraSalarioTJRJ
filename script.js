@@ -27,7 +27,7 @@ const TETO_AUX_CRECHE_INDIVIDUAL = 1765.59;
 const DEDUCAO_DEP_IR = 189.59;
 const TETO_INSS = 8475.55;
 const ALIQUOTA_RIOPREV = 0.14;
-const GRATIFICACAO_LOCALIZACAO_OJA = 3000.00; // Atualizado para os R$ 3.000,00 solicitados
+const GRATIFICACAO_LOCALIZACAO_OJA = 3560.57; // Atualizado para os R$ 3.560,57 solicitados
 
 function formatarMoeda(valor) {
   return valor.toLocaleString("pt-BR", {
@@ -190,7 +190,7 @@ function calcular() {
     Auxílio Alimentação: ${formatarMoeda(AUX_ALIMENTACAO)}<br>
     Auxílio Transporte: ${formatarMoeda(AUX_TRANSPORTE)}<br>
     Auxílio Creche: ${formatarMoeda(valorCrecheTotal)}<br>
-    ${cargo === "analista_oja" ? `Gratificação de Localização (OJA): ${formatarMoeda(GRATIFICACAO_LOCALIZACAO_OJA)}<br>` : ""}
+    ${cargo === "analista_oja" ? `Gratificação de Locomoção (OJA): ${formatarMoeda(GRATIFICACAO_LOCALIZACAO_OJA)}<br>` : ""}
     Total em Auxílios Indenizados: +${formatarMoeda(totalAuxilios)}<br><br>
 
     <div style="background-color: #1e3a8a; color: white; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-weight: bold;">
