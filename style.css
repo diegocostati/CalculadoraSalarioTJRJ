@@ -408,6 +408,18 @@ button:active {
   color: #cbd5e1;
 }
 
+.link-comissao {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.link-comissao:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
 @keyframes modalEntrada {
   from {
     opacity: 0;
