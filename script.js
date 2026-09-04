@@ -132,7 +132,7 @@ function calcular() {
   }
 
   // Previdência Complementar (RJPREV)
-  const basePrevComp = Math.max(0, rendimentoBrutoSujeitoPrevidencia - TETO_INSS);
+  const basePrevComp = Math.max(0, rendimentoBrutoSujeitoPrevidencia - TETO_INSS - gratificacoesExtras);
   const rjprevComplementar = regime === "pos2013" ? basePrevComp * (prevCompPercentual / 100) : 0;
 
   // Pensão Alimentícia e Dependentes
