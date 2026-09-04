@@ -2,24 +2,22 @@
    1. CONFIGURAÇÕES GERAIS, VARIÁVEIS E RESET (MODO DARK)
    ========================================================================== */
 :root {
-  /* Paleta de Cores Modo Dark Neutro/Saturado */
-  --primary: #38bdf8;            /* Azul celeste brilhante para contrastar no escuro */
+  --primary: #38bdf8;
   --primary-hover: #0ea5e9;
   --primary-light: rgba(56, 189, 248, 0.1);
-  --bg-main: #0f172a;            /* Fundo principal ultra-escuro (Slate 900) */
-  --text-main: #f8fafc;          /* Texto principal quase branco (Slate 50) */
-  --text-muted: #94a3b8;         /* Texto secundário/atenuado (Slate 400) */
-  --card-bg: #1e293b;            /* Fundo dos cards cinza-azulados (Slate 800) */
-  --border-color: #334155;       /* Bordas sutis para modo escuro (Slate 700) */
+  --bg-main: #0f172a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: #1e293b;
+  --border-color: #334155;
   --border-focus: #38bdf8;
   
-  /* Cores de Feedback Calibradas para Telas Escuras */
-  --desconto: #f43f5e;           /* Vermelho rosa vivo para destacar no fundo escuro */
+  --desconto: #f43f5e;
   --desconto-bg: rgba(244, 63, 94, 0.15);
-  --liquido: #34d399;            /* Verde esmeralda brilhante */
+  --liquido: #34d399;
   --liquido-bg: rgba(52, 211, 153, 0.1);
   --liquido-border: rgba(52, 211, 153, 0.3);
-  --azul-bloco: #1d4ed8;         /* Azul real em destaque */
+  --azul-bloco: #1d4ed8;
 }
 
 * {
@@ -56,7 +54,7 @@ body {
 
 .hero .tag {
   display: inline-block;
-  background-color: #0284c7;   /* Mantém o azul oficial do tribunal */
+  background-color: #0284c7;
   color: #ffffff;
   font-size: 0.8rem;
   font-weight: 700;
@@ -120,7 +118,7 @@ label {
   display: flex;
   flex-direction: column;
   font-size: 0.85rem;
-  color: #cbd5e1;                /* Rótulos mais claros para leitura no fundo escuro */
+  color: #cbd5e1;
   font-weight: 600;
   gap: 8px;
 }
@@ -130,7 +128,7 @@ input, select {
   padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid var(--border-color);
-  background-color: #0f172a;     /* Fundo interno dos inputs combinando com a página */
+  background-color: #0f172a;
   color: var(--text-main);
   font-size: 0.95rem;
   font-weight: 500;
@@ -139,7 +137,18 @@ input, select {
   appearance: none;
 }
 
-/* Seta customizada em tom claro para o modo escuro */
+optgroup {
+  background-color: #1e293b;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+option {
+  background-color: #0f172a;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
 select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -168,7 +177,6 @@ hr {
   margin: 24px 0;
 }
 
-/* Botão com gradiente vibrante e moderno no escuro */
 button {
   width: 100%;
   background-color: #0284c7;
@@ -179,7 +187,7 @@ button {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 12px;
+  margin-top: 16px;
   letter-spacing: 0.3px;
   transition: all 0.2s ease;
   box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
@@ -198,16 +206,11 @@ button:active {
    4. BLOCO DINÂMICO RJPREV
    ========================================================================== */
 #blocoPrevComp {
-  
   transition: opacity 0.3s ease;
 }
 
-#blocoPrevComp .grid {
-  grid-template-columns: 1fr;
-}
-
 /* ==========================================================================
-   5. CARD DE RESULTADOS (DEMONSTRATIVO DARK PREMIUM)
+   5. CARD DE RESULTADOS
    ========================================================================== */
 .result-card {
   background-color: var(--card-bg);
@@ -235,12 +238,6 @@ button:active {
   content: "";
   display: block;
   margin-bottom: 6px;
-}
-
-/* Customizações utilitárias injetadas pelo Javascript */
-.text-bruto {
-  font-weight: 700;
-  color: var(--text-main);
 }
 
 .text-desconto {
@@ -283,15 +280,11 @@ button:active {
 }
 
 /* ==========================================================================
-   7. RESPONSIVIDADE MÁXIMA (MOBILE & TABLET)
+   7. RESPONSIVIDADE
    ========================================================================== */
 @media (max-width: 768px) {
   body {
     padding: 24px 16px;
-  }
-
-  .hero {
-    margin-bottom: 28px;
   }
 
   .hero h1 {
@@ -316,17 +309,10 @@ button:active {
     font-size: 1.5rem;
     padding: 14px;
   }
-  
-  /* Ajusta a barra interna azul injetada por linha pelo JS */
-  div[style*="background-color: #1e3a8a"] {
-    background-color: var(--azul-bloco) !important; /* Força o azul adequado do tema dark */
-    font-size: 0.9rem;
-    padding: 12px !important;
-  }
 }
 
 /* ==========================================================================
-   7. POP-UP MODAL (DISCLAIMER)
+   8. POP-UP MODAL (DISCLAIMER)
    ========================================================================== */
 .modal-overlay {
   position: fixed;
@@ -334,18 +320,18 @@ button:active {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(15, 23, 42, 0.85); /* Fundo escuro semitransparente */
-  backdrop-filter: blur(8px); /* Desfoque cinematográfico do fundo */
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Garante que fica por cima de absolutamente tudo */
+  z-index: 9999;
   opacity: 1;
   transition: opacity 0.3s ease;
 }
 
 .modal-card {
-  background-color: #1e293b; /* Azul-ardósia do tema escuro */
+  background-color: #1e293b;
   border: 1px solid #334155;
   border-radius: 20px;
   padding: 32px;
@@ -376,7 +362,7 @@ button:active {
 }
 
 .modal-alert-box {
-  background-color: rgba(220, 38, 38, 0.1); /* Fundo vermelho sutil de alerta */
+  background-color: rgba(220, 38, 38, 0.1);
   border-left: 4px solid #dc2626;
   padding: 12px 16px;
   border-radius: 8px;
@@ -422,7 +408,6 @@ button:active {
   color: #cbd5e1;
 }
 
-/* Animação para o Pop-up surgir elegantemente de baixo para cima */
 @keyframes modalEntrada {
   from {
     opacity: 0;

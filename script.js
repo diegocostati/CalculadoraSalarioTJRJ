@@ -1,4 +1,4 @@
-// Tabelas Salariais Oficiais 2026 obtidas através das imagens anexadas
+// Tabelas Salariais Oficiais 2026 obtidas através das diretrizes do TJRJ
 const tabelaVencimentos2026 = {
   tecnico: {
     1: 1895.18, 2: 1970.99, 3: 2049.81, 4: 2131.81,
@@ -12,12 +12,31 @@ const tabelaVencimentos2026 = {
     9: 4271.71, 10: 4442.57, 11: 4620.26, 12: 4805.09,
     13: 5189.49, 14: 5604.65, 15: 6053.02, 16: 6537.27
   },
-  analista_oja: { // Novo cargo adicionado mapeando a tabela de nível superior
+  analista_oja: {
     1: 3121.28, 2: 3246.14, 3: 3375.98, 4: 3511.03,  
     5: 3651.47, 6: 3797.51, 7: 3949.43, 8: 4107.41,  
     9: 4271.71, 10: 4442.57, 11: 4620.26, 12: 4805.09,  
     13: 5189.49, 14: 5604.65, 15: 6053.02, 16: 6537.27   
   }
+};
+
+// Tabela Oficial de Cargos em Comissão e Funções de Confiança (Anexo III - TJRJ)
+const tabelaChefiaTJRJ = {
+  "nenhum": 0.00,
+  "cai-1": 1089.08,
+  "cai-2": 2158.16,
+  "cai-3": 4291.31,
+  "cai-4": 4904.36,
+  "cai-5": 5517.39,
+  "cai-6": 6130.45,
+  "dai-6": 6080.49,
+  "das-6": 9828.71,
+  "das-7": 10486.77,
+  "das-8": 11124.80,
+  "das-9": 12249.28,
+  "das-10": 21700.22,
+  "das-11": 25943.03,
+  "dgcg": 33471.43
 };
 
 // Constantes de Benefícios e Parâmetros Fiscais Vigentes em 2026
@@ -27,7 +46,7 @@ const TETO_AUX_CRECHE_INDIVIDUAL = 1765.59;
 const DEDUCAO_DEP_IR = 189.59;
 const TETO_INSS = 8475.55;
 const ALIQUOTA_RIOPREV = 0.14;
-const GRATIFICACAO_LOCALIZACAO_OJA = 3560.57; // Atualizado para os R$ 3.560,57 solicitados
+const GRATIFICACAO_LOCALIZACAO_OJA = 3560.57;
 
 function formatarMoeda(valor) {
   return valor.toLocaleString("pt-BR", {
@@ -53,7 +72,6 @@ function alternarRegimePrevidencia() {
 }
 
 function calcularIR(base) {
-  // 1. Cálculo do IR utilizando a tabela tradicional mantida em 2026
   let irTradicional = 0;
   
   if (base <= 2428.80) {
@@ -68,26 +86,20 @@ function calcularIR(base) {
     irTradicional = base * 0.275 - 908.73;
   }
 
-  // 2. Aplicação dos novos redutores fiscais da regra de 2026
+  // Redutores fiscais de 2026 (Isenção até R$ 5.000,00)
   if (base <= 5000.00) {
-    // Isenção total: o redutor de até R$ 312,89 zera o imposto apurado
     return 0;
   } else if (base <= 7350.00) {
-    // Redução gradual e decrescente do imposto
     let redutor = 978.62 - (0.133145 * base);
     let irFinal = irTradicional - redutor;
-    
-    // Garante que o imposto não fique negativo caso o redutor supere o IR
     return Math.max(0, irFinal);
   }
 
-  // Para bases acima de R$ 7.350,00, segue o valor da tabela tradicional sem descontos
   return Math.max(0, irTradicional);
 }
 
 function obterPercentualTrienio(quantidade) {
   if (quantidade === 0) return 0;
-  // 1º triênio é 10%, os próximos somam 5% cada até o teto de 60%
   let percentual = 10 + (quantidade - 1) * 5;
   return Math.min(percentual, 60) / 100;
 }
@@ -99,77 +111,85 @@ function calcular() {
   const qtdTrienios = parseInt(document.getElementById("trieniosQuantidade").value);
   const percAQ = parseFloat(document.getElementById("adicionalQualificacao").value) / 100;
   
+  const cargoChefiaSelecionado = document.getElementById("cargoChefia").value;
+  const valorChefia = tabelaChefiaTJRJ[cargoChefiaSelecionado] || 0;
+
   const qtdFilhosCreche = parseInt(document.getElementById("filhosCreche").value) || 0;
   const dependentes = parseInt(document.getElementById("dependentes").value) || 0;
   const pensaoPerc = (parseFloat(document.getElementById("pensao").value) || 0) / 100;
   const outros = parseFloat(document.getElementById("outros").value) || 0;
   let prevCompPercentual = parseFloat(document.getElementById("prevComp").value) || 0;
   
-  // Captura do novo campo de gratificações extras
   const gratificacoesExtras = parseFloat(document.getElementById("gratificacoesExtras").value) || 0;
 
-  // 1. Vencimentos estruturais (Vencimento + GAJ 100% + APJ 100%)
+  // 1. Vencimentos estruturais efetivos (Vencimento + GAJ 100% + APJ 100%)
   const vencimentoBase = tabelaVencimentos2026[cargo][padrao];
   const gaj = vencimentoBase; 
   const apj = vencimentoBase; 
   const totalBaseEsmagado = vencimentoBase + gaj + apj;
 
-  // 2. Adicionais de Carreira (Triênio e AQ)
+  // 2. Adicionais de Carreira Efetivos (Triênio e AQ sobre a base do cargo efetivo)
   const percTrienio = obterPercentualTrienio(qtdTrienios);
   const valorTrienio = totalBaseEsmagado * percTrienio;
   const adicionalQualificacao = totalBaseEsmagado * percAQ; 
 
-  // Remuneração Bruta Sujeita a Descontos (incluindo as Gratificações Extras conforme solicitado)
-  const rendimentoBrutoSujeitoPrevidencia = totalBaseEsmagado + valorTrienio + adicionalQualificacao + gratificacoesExtras;
+  // Base do Cargo Efetivo: sofre incidência de Previdência Comum e Complementar
+  const basePrevidenciariaEfetiva = totalBaseEsmagado + valorTrienio + adicionalQualificacao;
 
-  // 3. Previdência (RIOPREV - 14%)
+  // Salário Bruto Remuneratório Total (inclui Chefia e Gratificações Extras)
+  const salarioBrutoRemuneratorio = basePrevidenciariaEfetiva + valorChefia + gratificacoesExtras;
+
+  // 3. Previdência Social Obrigatória (RIOPREV - 14%)
+  // ATENÇÃO: Chefia é transitória e NÃO entra na base de cálculo da previdência
   let rjprevObrigatoria = 0;
   if (regime === "pos2013") {
-    const baseCalculoPrev = Math.min(rendimentoBrutoSujeitoPrevidencia, TETO_INSS);
+    const baseCalculoPrev = Math.min(basePrevidenciariaEfetiva, TETO_INSS);
     rjprevObrigatoria = baseCalculoPrev * ALIQUOTA_RIOPREV;
   } else {
-    rjprevObrigatoria = rendimentoBrutoSujeitoPrevidencia * ALIQUOTA_RIOPREV;
+    rjprevObrigatoria = basePrevidenciariaEfetiva * ALIQUOTA_RIOPREV;
   }
 
   // Previdência Complementar (RJPREV)
-  const basePrevComp = Math.max(0, rendimentoBrutoSujeitoPrevidencia - TETO_INSS - gratificacoesExtras);
+  // Também calculada estritamente sobre a base do cargo efetivo que exceder o teto
+  const basePrevComp = Math.max(0, basePrevidenciariaEfetiva - TETO_INSS);
   const rjprevComplementar = regime === "pos2013" ? basePrevComp * (prevCompPercentual / 100) : 0;
 
-  // Pensão Alimentícia e Dependentes
-  const pensao = (rendimentoBrutoSujeitoPrevidencia) * pensaoPerc;
+  // Pensão Alimentícia (calculada sobre o bruto remuneratório)
+  const pensao = salarioBrutoRemuneratorio * pensaoPerc;
   const deducaoDep = dependentes * DEDUCAO_DEP_IR;
 
   // 4. Base e Cálculo de Imposto de Renda (IRPF)
-  const baseIR = Math.max(0, rendimentoBrutoSujeitoPrevidencia - rjprevObrigatoria - rjprevComplementar - pensao - deducaoDep);
+  // O Cargo de Chefia é tributável pelo IR e compõe o bruto integral
+  const baseIR = Math.max(0, salarioBrutoRemuneratorio - rjprevObrigatoria - rjprevComplementar - pensao - deducaoDep);
   const ir = calcularIR(baseIR);
 
   // Consolidação de Benefícios e Auxílios Indenizatórios (Isentos)
   const valorCrecheTotal = qtdFilhosCreche * TETO_AUX_CRECHE_INDIVIDUAL;
-  
-  // Verifica se o cargo é OJA para adicionar os R$ 3.000,00 isolados nos benefícios
   const valorOjaIndenizatorio = cargo === "analista_oja" ? GRATIFICACAO_LOCALIZACAO_OJA : 0;
   const totalAuxilios = AUX_ALIMENTACAO + AUX_TRANSPORTE + valorCrecheTotal + valorOjaIndenizatorio;
 
   // Encerramento do Cálculo Líquido
   const totalDescontosObrigatorios = rjprevObrigatoria + ir;
-  const salarioLiquidoSemAuxilios = rendimentoBrutoSujeitoPrevidencia - totalDescontosObrigatorios - rjprevComplementar - pensao - outros;
+  const salarioLiquidoSemAuxilios = salarioBrutoRemuneratorio - totalDescontosObrigatorios - rjprevComplementar - pensao - outros;
   const resultadoFinalLiquidoGeral = salarioLiquidoSemAuxilios + totalAuxilios;
 
-  // Renderização do Painel de Resultados (Atualizado com Gratificações Extras e divisões de Previdência)
+  // Renderização do Painel de Resultados
   document.getElementById("resultado").innerHTML = `
     <h3>Demonstrativo de Remuneração Estimada (TJRJ)</h3>
     <hr>
     
-    <strong>Vantagens e Adicionais:</strong><br>
+    <strong>Vantagens e Adicionais do Cargo:</strong><br>
     Vencimento-Base: ${formatarMoeda(vencimentoBase)}<br>
     GAJ (100%): ${formatarMoeda(gaj)}<br>
     APJ (100%): ${formatarMoeda(apj)}<br>
     Triênio (${(percTrienio * 100).toFixed(0)}%): ${formatarMoeda(valorTrienio)}<br>
     Adicional de Qualificação (AQ): ${formatarMoeda(adicionalQualificacao)}<br>
+    ${valorChefia > 0 ? `Cargo em Comissão / Função de Chefia: <strong>+${formatarMoeda(valorChefia)}</strong><br>` : ""}
     ${gratificacoesExtras > 0 ? `Gratificações Extras: ${formatarMoeda(gratificacoesExtras)}<br>` : ""}
-    <strong>Salário Bruto Remuneratório:</strong> ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia)}<br><br>
+    <strong>Salário Bruto Remuneratório:</strong> ${formatarMoeda(salarioBrutoRemuneratorio)}<br><br>
 
     <strong>Previdência Social (Obrigatória):</strong><br>
+    <small style="color: var(--text-muted); display: block; margin-bottom: 4px;">*Calculada sobre o cargo efetivo (${formatarMoeda(basePrevidenciariaEfetiva)}), excluindo chefias transitórias.</small>
     Previdência Obrigatória (RIOPREV 14%): <span class="text-desconto">-${formatarMoeda(rjprevObrigatoria)}</span><br><br>
 
     ${regime === "pos2013" && rjprevComplementar > 0 ? `
@@ -194,28 +214,26 @@ function calcular() {
     Total em Auxílios Indenizados: +${formatarMoeda(totalAuxilios)}<br><br>
 
     <div style="background-color: #1e3a8a; color: white; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-weight: bold;">
-      Salário Bruto + Benefícios: ${formatarMoeda(rendimentoBrutoSujeitoPrevidencia + totalAuxilios)}
+      Salário Bruto + Benefícios: ${formatarMoeda(salarioBrutoRemuneratorio + totalAuxilios)}
     </div>
 
     <strong>Salário Líquido Final:</strong> <span class="text-liquido" style="color: #10b981; font-weight: bold; font-size: 1.2em;">${formatarMoeda(resultadoFinalLiquidoGeral)}</span>
   `;
 }
 
-// Gerenciamento do Pop-up de Aviso Legal (Isolado no escopo global)
+// Gerenciamento do Pop-up de Aviso Legal
 document.addEventListener("DOMContentLoaded", () => {
-  // Inicializa o estado da previdência
   alternarRegimePrevidencia(); 
 
   const modal = document.getElementById("disclaimerModal");
   const btnAceitar = document.getElementById("btnAceitarDisclaimer");
 
-  // Quando o usuário clicar no botão, remove o modal com um efeito de esmaecimento
   if (btnAceitar && modal) {
     btnAceitar.addEventListener("click", () => {
       modal.style.opacity = "0";
       setTimeout(() => {
         modal.style.display = "none";
-      }, 300); // Tempo correspondente à transição do CSS
+      }, 300);
     });
   }
 });

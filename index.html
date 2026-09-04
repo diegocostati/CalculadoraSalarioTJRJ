@@ -29,7 +29,7 @@
   <main class="container">
 
     <section class="hero">
-      <p class="tag">CalcRemTJRJ v1.1</p>
+      <p class="tag">CalcRemTJRJ v1.2</p>
       <h1>Calculadora de Remuneração (TJRJ)</h1>
       <p class="subtitle">
         Ferramenta para simulação da remuneração Bruta e Líquida dos cargos de Técnico Judiciário e Analista Judiciário do Tribunal de Justiça do Estado do Rio de Janeiro.
@@ -91,7 +91,7 @@
     </section>
 
     <section class="card">
-      <h2>AQ, Previdência e Dependentes</h2>
+      <h2>AQ, Cargo de Chefia e Previdência</h2>
       <div class="grid">
         <label>
           Adicional de Qualificação (AQ)
@@ -105,22 +105,42 @@
         </label>
 
         <label>
+          Cargo em Comissão / Chefia (TJRJ)
+          <select id="cargoChefia" onchange="calcular()">
+            <option value="nenhum" selected>Nenhum (R$ 0,00)</option>
+            <optgroup label="Funções Gratificadas (CAI / DAI)">
+              <option value="cai-1">CAI-1 (R$ 1.089,08)</option>
+              <option value="cai-2">CAI-2 (R$ 2.158,16)</option>
+              <option value="cai-3">CAI-3 (R$ 4.291,31)</option>
+              <option value="cai-4">CAI-4 (R$ 4.904,36)</option>
+              <option value="cai-5">CAI-5 (R$ 5.517,39)</option>
+              <option value="cai-6">CAI-6 (R$ 6.130,45)</option>
+              <option value="dai-6">DAI-6 (R$ 6.080,49)</option>
+            </optgroup>
+            <optgroup label="Cargos em Comissão (DAS / DG)">
+              <option value="das-6">DAS-6 (R$ 9.828,71)</option>
+              <option value="das-7">DAS-7 (R$ 10.486,77)</option>
+              <option value="das-8">DAS-8 (R$ 11.124,80)</option>
+              <option value="das-9">DAS-9 (R$ 12.249,28)</option>
+              <option value="das-10">DAS-10 (R$ 21.700,22)</option>
+              <option value="das-11">DAS-11 (R$ 25.943,03)</option>
+              <option value="dgcg">DG / CG (R$ 33.471,43)</option>
+            </optgroup>
+          </select>
+        </label>
+
+        <label>
           Ingresso (Regime Previdenciário)
           <select id="regimePrevidencia" onchange="alternarRegimePrevidencia()">
             <option value="pos2013" selected>Após 04/09/2013 (Com Teto)</option>
             <option value="pre2013">Antes de 04/09/2013 (Sem Teto)</option>
           </select>
         </label>
-
-        <label>
-          Dependentes (Dedução IR)
-          <input type="number" id="dependentes" value="0" min="0" oninput="calcular()">
-        </label>
       </div>
     </section>
 
     <section class="card">
-      <h2>Aux. Creche, Pensão, Descontos, Gratificações Extras e Prev. Complementar</h2>
+      <h2>Dependentes, Deduções e Gratificações Extras</h2>
       <div class="grid">
         <label>
           Filhos/Dependentes para Auxílio-Creche
@@ -131,6 +151,11 @@
             <option value="3">3 Dependentes (R$ 5.296,77)</option>
             <option value="4">4 Dependentes (R$ 7.062,36)</option>
           </select>
+        </label>
+
+        <label>
+          Dependentes (Dedução IR)
+          <input type="number" id="dependentes" value="0" min="0" oninput="calcular()">
         </label>
 
         <label>
@@ -154,7 +179,8 @@
             <input type="number" id="prevComp" value="0" min="0" max="8.5" step="0.1" oninput="calcular()">
           </label>
         </div>
-      </div> <button type="button" onclick="calcular()">Calcular Remuneração TJRJ</button>
+      </div>
+      <button type="button" onclick="calcular()">Calcular Remuneração TJRJ</button>
     </section>
 
     <section class="result-card" id="resultado">
